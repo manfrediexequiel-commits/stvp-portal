@@ -157,4 +157,79 @@ with st.form("form_afiliacion_final"):
     nombre_afi = f_col1.text_input("Nombre Completo")
     dni_afi = f_col2.text_input("DNI")
     empresa_afi = f_col1.text_input("Empresa donde trabajás")
-    cel_afi = f_col2
+    cel_afi = f_col2.text_input("Teléfono Celular")
+    
+    if st.form_submit_button("Enviar Datos"):
+        if nombre_afi and dni_afi and cel_afi:
+            try:
+                # Intentamos leer la pestaña "Afiliaciones"
+                try:
+                    df_afi = conn.read(spreadsheet=URL_SHEET, worksheet="Afiliaciones")
+                except:
+                    df_afi = pd.DataFrame(columns=["Nombre", "DNI", "Empresa", "Celular", "Fecha"])
+
+                nueva_fila = pd.DataFrame([{
+                    "Nombre": nombre_afi, "DNI": dni_afi, 
+                    "Empresa": empresa_afi, "Celular": cel_afi,
+                    "Fecha": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                }])
+                
+                actualizado = pd.concat([df_afi, nueva_fila], ignore_index=True)
+                conn.update(spreadsheet=URL_SHEET, worksheet="Afiliaciones", data=actualizado)
+                
+                st.success(f"¡Excelente {nombre_afi}! Tus datos se registraron con éxito.")
+                st.balloons()
+            except Exception as e:
+                st.error("Error al guardar. Verificá que el Sheet tenga acceso de Editor.")
+        else:
+            st.warning("Por favor completá los campos obligatorios.")
+
+st.markdown("---")
+
+# --- SECCIÓN: CONSULTA Y PAGO (LECTURA DE DEUDA DESDE PESTAÑA 'CUOTA') ---
+st.markdown('<div id="consulta" class="section-title">🔍 Consulta de Deuda</div>', unsafe_allow_html=True)
+con_c1, con_c2, con_c3 = st.columns([1, 2, 1])
+with con_c2:
+    dni_search = st.text_input("Ingresá tu DNI para consultar total adeudado:", placeholder="Ej: 26688868")
+    if st.button("Consultar Ahora"):
+        try:
+            # Leemos la pestaña 'Cuota'
+            df_deudas = conn.read(spreadsheet=URL_SHEET, worksheet="Cuota")
+            df_deudas.columns = [c.strip() for c in df_deudas.columns]
+            
+            res = df_deudas[df_deudas['DNI'].astype(str) == dni_search]
+            
+            if not res.empty:
+                st.info(f"Afiliado registrado: **{res.iloc[0]['NOMBRE']}**")
+                deuda_val = res.iloc[0]['TOTAL ADEUDADO']
+                if "$ 0" in str(deuda_val) or "0.00" in str(deuda_val) or str(deuda_val).strip() == "":
+                    st.success("✅ **¡Estás al día!** No registrás deuda.")
+                else:
+                    st.warning(f"⚠️ **Total Adeudado: {deuda_val}**")
+            else:
+                st.error("DNI no encontrado en el padrón de cuotas.")
+        except Exception as e:
+            st.error(f"Error al leer la base de datos: {e}")
+
+st.markdown("---")
+
+# --- SECCIÓN: CONTACTO Y UBICACIÓN ---
+st.markdown('<div id="contacto" class="section-title">📞 Contacto y Ubicación</div>', unsafe_allow_html=True)
+cont1, cont2 = st.columns(2)
+with cont1:
+    st.markdown("""
+    ### Sede Central STVP
+    - **🏛️ Dirección:** Piedras 1065, Ciudad Autónoma de Buenos Aires.
+    - **📧 Email:** stvp.sindicatodeseguridad@gmail.com
+    - **📜 Inscripción Gremial:** Nº 2822
+    - **⏰ Horario:** Lunes a Viernes 09:00 - 17:00 hs
+    """)
+with cont2:
+    # Mapa de Google Maps embebido (Piedras 1065, CABA)
+    st.markdown("""
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.565780521404!2d-58.3822183!3d-34.615147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccad06236353d%3A0x647e38356134b2f4!2sPiedras%201065%2C%20C1070AAW%20CABA!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar" 
+    width="100%" height="300" style="border:0; border-radius:15px;" allowfullscreen="" loading="lazy"></iframe>
+    """, unsafe_allow_html=True)
+
+# --- PIE DE PÁGINA ---
+st.markdown("<br><hr><p style='text-align:center; color:grey;'>© 2024 STVP - Sindicato de Trabajadores de Vigilancia Privada. Piedras 1065, CABA.</p>", unsafe_allow_html=True)
