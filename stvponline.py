@@ -72,7 +72,7 @@ st.markdown("""
 
 # --- 4. CONEXIÓN A GOOGLE SHEETS ---
 # Usamos el link de edición para que el conector pueda escribir
-URL_SHEET = "https://docs.google.com/spreadsheets/d/1B6DkX8W6yE6mQpS_zS9z-D8oH9uT-vX-8_yD3XU-y-M/edit"
+URL_SHEET = "https://docs.google.com/spreadsheets/d/1mmMbsH6BNfrcmtq3T7xDizBVxjd--sWUIUdBZtSPuFM/edit?gid=6508803#gid=6508803"
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # --- SECCIÓN: INICIO ---
