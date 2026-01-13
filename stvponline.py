@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 2. ESTILOS DE ALTA VISIBILIDAD (FONDO CELESTE) ---
+# --- 2. ESTILOS PERSONALIZADOS (CSS) ---
 st.markdown("""
     <style>
     .stApp { background-color: #E3F2FD; }
@@ -43,11 +43,18 @@ st.markdown("""
         margin-bottom: 30px;
     }
 
-    /* Botón de descarga estilizado */
+    /* Botones Estilizados */
+    .btn-whatsapp-rolsol {
+        background-color: #0080ff; color: white !important;
+        padding: 12px 20px; text-decoration: none; border-radius: 8px;
+        font-weight: bold; display: inline-block; margin-top: 15px;
+    }
+    
     .download-btn {
         display: inline-block; padding: 15px 25px; background-color: #D32F2F;
         color: white !important; text-decoration: none; border-radius: 10px;
         font-weight: bold; margin-top: 10px; border: 2px solid #B71C1C;
+        text-align: center;
     }
 
     .whatsapp-float {
@@ -66,8 +73,16 @@ st.markdown("""
     </a>
     """, unsafe_allow_html=True)
 
-# --- 3. NAVEGACIÓN ---
-st.markdown("""<div class="nav-bar"><a href="#inicio">INICIO</a><a href="#beneficios">BENEFICIOS</a><a href="#afiliacion">AFILIACIÓN</a><a href="#contacto">SEDE CENTRAL</a></div><div style="margin-top: 100px;"></div>""", unsafe_allow_html=True)
+# --- 3. BARRA DE NAVEGACIÓN ---
+st.markdown("""
+    <div class="nav-bar">
+        <a href="#inicio">INICIO</a>
+        <a href="#beneficios">BENEFICIOS</a>
+        <a href="#afiliacion">AFILIACIÓN</a>
+        <a href="#contacto">SEDE CENTRAL</a>
+    </div>
+    <div style="margin-top: 100px;"></div>
+""", unsafe_allow_html=True)
 
 # --- 4. CONEXIÓN A GOOGLE SHEETS ---
 URL_SHEET = "https://docs.google.com/spreadsheets/d/1mmMbsH6BNfrcmtq3T7xDizBVxjd--sWUIUdBZtSPuFM/edit#gid=6508803"
@@ -89,7 +104,8 @@ def guardar_registro(nombre, dni, empresa, celular, intereses):
 # --- 5. SECCIÓN INICIO ---
 st.markdown('<div id="inicio"></div>', unsafe_allow_html=True)
 c_logo, c_title = st.columns([1, 3])
-with c_logo: st.image("https://customer-assets.emergentagent.com/job_stvp-portal-1/artifacts/xlt7u219_logo_stvp.png", width=160)
+with c_logo: 
+    st.image("https://customer-assets.emergentagent.com/job_stvp-portal-1/artifacts/xlt7u219_logo_stvp.png", width=160)
 with c_title:
     st.markdown("<h1 style='color: #0D47A1; margin-bottom:0;'>STVP - Sindicato Vigilancia</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='color: #1565C0;'>Gestión y Beneficios para el Trabajador</h3>", unsafe_allow_html=True)
@@ -97,44 +113,54 @@ with c_title:
 # --- 6. SECCIÓN BENEFICIOS ---
 st.markdown('<div id="beneficios" class="section-title">🎁 Beneficios y Convenios</div>', unsafe_allow_html=True)
 
-# Cards principales
+# Tarjetas rápidas
 b1, b2, b3 = st.columns(3)
-with b1: st.markdown('<div class="benefit-card"><h3>🚌 Turismo RolSol</h3><p>Viajes con facilidades de pago. Grilla completa de salidas grupales.</p></div>', unsafe_allow_html=True)
+with b1: st.markdown('<div class="benefit-card"><h3>🚌 Turismo RolSol</h3><p>Viajes con facilidades de pago. Ofertas exclusivas de verano.</p></div>', unsafe_allow_html=True)
 with b2: st.markdown('<div class="benefit-card"><h3>🏍️ Ciudad Moto</h3><p>Descuentos exclusivos en unidades y accesorios para afiliados.</p></div>', unsafe_allow_html=True)
 with b3: st.markdown('<div class="benefit-card"><h3>⚖️ Gremiales</h3><p>Asesoría legal y defensa del convenio colectivo de trabajo.</p></div>', unsafe_allow_html=True)
 
-# Galería Turismo RolSol
+# Galería Turismo RolSol con imágenes subidas y Canal de WhatsApp
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
-st.subheader("🚌 Destinos Destacados - Turismo RolSol")
-ci1, ci2, ci3 = st.columns(3)
-with ci1: st.image("https://www.rolsol.com.ar/uploads/destinos/fotos/destino_1_1.jpg", caption="Cataratas", use_container_width=True)
-with ci2: st.image("https://www.rolsol.com.ar/uploads/destinos/fotos/destino_4_1.jpg", caption="Mendoza", use_container_width=True)
-with ci3: st.image("https://www.rolsol.com.ar/uploads/destinos/fotos/destino_11_1.jpg", caption="Norte Argentino", use_container_width=True)
+col_t1, col_t2 = st.columns([2, 1])
+with col_t1:
+    st.subheader("🚌 Ofertas de Verano - Turismo RolSol")
+with col_t2:
+    canal_whatsapp = "https://whatsapp.com/channel/0029VbAua9BJENy8oScpAH2B"
+    st.markdown(f'<a href="{canal_whatsapp}" target="_blank" class="btn-whatsapp-rolsol">📢 Canal de WhatsApp</a>', unsafe_allow_html=True)
+
+c1, c2, c3 = st.columns(3)
+with c1: st.image("rolsol1.jpg", caption="Bariloche - 19 de Enero", use_container_width=True)
+with c2: st.image("rolsol2.jpg", caption="Villa de Merlo - 15 de Enero", use_container_width=True)
+with c3: st.image("rolsol.jpg", caption="Mar del Plata - Enero", use_container_width=True)
+
+c4, c5, c6 = st.columns(3)
+with c4: st.image("rolsol3.jpg", caption="Noroeste Argentino Full", use_container_width=True)
+with c5: st.image("rolsol4.jpg", caption="Patagonia Soñada", use_container_width=True)
+with c6: st.image("rolsol5.jpg", caption="Cataratas (Aéreo) - 22 Enero", use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Detalle Hotelería Luz y Fuerza + BOTÓN DESCARGA
+# Hotelería Luz y Fuerza + Descarga de Folleto
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
-col_text, col_btn = st.columns([3, 1])
+col_text, col_btn = st.columns([2, 1])
 with col_text:
     st.subheader("🏖️ Temporada 25/26 - Hoteles Luz y Fuerza")
 with col_btn:
-    # REEMPLAZA ESTE LINK POR TU ARCHIVO PDF REAL
-    link_pdf = "https://tu-enlace-al-folleto-pdf.pdf"
-    st.markdown(f'<a href="{link_pdf}" target="_blank" class="download-btn">📥 DESCARGAR FOLLETO</a>', unsafe_allow_html=True)
+    folleto_drive = "https://drive.google.com/file/d/1jhcYwAVWGr9ZSHIiAgaPyU_j4eJho_yx/view?usp=drive_link"
+    st.markdown(f'<a href="{folleto_drive}" target="_blank" class="download-btn">📥 DESCARGAR FOLLETO PDF</a>', unsafe_allow_html=True)
 
 t_h = st.tabs(["San Bernardo", "Mar del Plata", "Villa Giardino", "Bariloche"])
 with t_h[0]:
     st.write("**Hotel 'Por la Liberación Nacional'** (Chiozza 2455)")
     st.table({"Categoría": ["Doble", "Triple", "Cuádruple"], "Tarifa p/p": ["$100.000", "$95.000", "$90.000"]})
 with t_h[1]:
-    st.write("**Hotel 'Oscar Lescano'** (Av. De Los Trabajadores 3971)")
+    st.write("**Hotel 'Oscar Lescano'**")
     st.write("Servicio Todo Incluido frente al mar.")
 with t_h[2]:
     st.write("**Villa Giardino (Córdoba)**")
     st.write("Estadías de 7 días. Ideal para descanso familiar.")
 with t_h[3]:
     st.write("**Bariloche - Alún Nehuén**")
-    st.write("Media pensión con vistas panorámicas al Nahuel Huapi.")
+    st.write("Media pensión con vistas panorámicas.")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # --- 7. FORMULARIO DE AFILIACIÓN ---
@@ -149,6 +175,7 @@ with st.container():
         cel = f_c2.text_input("WhatsApp*")
         inte = st.multiselect("Me interesa recibir info sobre:", ["Turismo", "Kit Escolar", "Asesoría Legal", "Salud"])
         acepto = st.checkbox("Acepto que mis datos sean tratados bajo la Ley 25.326.")
+        
         if st.form_submit_button("ENVIAR SOLICITUD"):
             if acepto and nom and dni.isdigit() and cel:
                 if guardar_registro(nom, dni, emp, cel, inte):
@@ -163,6 +190,7 @@ st.markdown('<div id="contacto" class="section-title">📍 Sede Central</div>', 
 with st.container():
     st.markdown('<div class="white-container" style="text-align:center;">', unsafe_allow_html=True)
     st.markdown("### Dirección: Piedras 1065, Constitución, CABA")
+    st.write("Atención presencial: Lunes a Viernes 09:00 - 17:00 hs.")
     map_coord = pd.DataFrame({'lat': [-34.6215], 'lon': [-58.3815]})
     st.map(map_coord)
     st.markdown('</div>', unsafe_allow_html=True)
