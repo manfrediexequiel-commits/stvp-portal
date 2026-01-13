@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 2. ESTILOS DE ALTA VISIBILIDAD (FONDO CELESTE Y DISEÑO MODERNO) ---
+# --- 2. ESTILOS DE ALTA VISIBILIDAD (FONDO CELESTE) ---
 st.markdown("""
     <style>
     .stApp { background-color: #E3F2FD; }
@@ -34,14 +34,20 @@ st.markdown("""
     .benefit-card {
         padding: 25px; border-radius: 15px; background-color: #ffffff;
         border-left: 10px solid #1E88E5; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        margin-bottom: 20px; min-height: 250px;
-        display: flex; flex-direction: column; justify-content: space-between;
+        margin-bottom: 20px; min-height: 220px;
     }
     
     .white-container {
         background-color: #ffffff; padding: 30px; border-radius: 20px;
-        border: 3px solid #0D47A1; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        border: 2px solid #0D47A1; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         margin-bottom: 30px;
+    }
+
+    /* Botón de descarga estilizado */
+    .download-btn {
+        display: inline-block; padding: 15px 25px; background-color: #D32F2F;
+        color: white !important; text-decoration: none; border-radius: 10px;
+        font-weight: bold; margin-top: 10px; border: 2px solid #B71C1C;
     }
 
     .whatsapp-float {
@@ -61,7 +67,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- 3. NAVEGACIÓN ---
-st.markdown("""<div class="nav-bar"><a href="#inicio">INICIO</a><a href="#beneficios">BENEFICIOS</a><a href="#afiliacion">AFILIACIÓN</a><a href="#contacto">CONTACTO</a></div><div style="margin-top: 100px;"></div>""", unsafe_allow_html=True)
+st.markdown("""<div class="nav-bar"><a href="#inicio">INICIO</a><a href="#beneficios">BENEFICIOS</a><a href="#afiliacion">AFILIACIÓN</a><a href="#contacto">SEDE CENTRAL</a></div><div style="margin-top: 100px;"></div>""", unsafe_allow_html=True)
 
 # --- 4. CONEXIÓN A GOOGLE SHEETS ---
 URL_SHEET = "https://docs.google.com/spreadsheets/d/1mmMbsH6BNfrcmtq3T7xDizBVxjd--sWUIUdBZtSPuFM/edit#gid=6508803"
@@ -85,91 +91,80 @@ st.markdown('<div id="inicio"></div>', unsafe_allow_html=True)
 c_logo, c_title = st.columns([1, 3])
 with c_logo: st.image("https://customer-assets.emergentagent.com/job_stvp-portal-1/artifacts/xlt7u219_logo_stvp.png", width=160)
 with c_title:
-    st.markdown("<h1 style='color: #0D47A1; margin-bottom:0;'>Sindicato STVP</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='color: #1565C0;'>Vigilancia Privada - Piedras 1065, CABA</h3>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #0D47A1; margin-bottom:0;'>STVP - Sindicato Vigilancia</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #1565C0;'>Gestión y Beneficios para el Trabajador</h3>", unsafe_allow_html=True)
 
-# --- 6. SECCIÓN BENEFICIOS EXCLUSIVOS ---
+# --- 6. SECCIÓN BENEFICIOS ---
 st.markdown('<div id="beneficios" class="section-title">🎁 Beneficios y Convenios</div>', unsafe_allow_html=True)
+
+# Cards principales
 b1, b2, b3 = st.columns(3)
-with b1:
-    st.markdown('<div class="benefit-card" style="border-left-color: #FF9800;"><h3>🚌 Turismo RolSol</h3><p>Viajes grupales con planes de pago. <a href="https://whatsapp.com/channel/0029VbAua9BJENy8oScpAH2B">Ver Canal</a></p></div>', unsafe_allow_html=True)
-with b2:
-    st.markdown('<div class="benefit-card" style="border-left-color: #E91E63;"><h3>🏍️ Ciudad Moto</h3><p>Descuentos directos en unidades y repuestos para afiliados con credencial.</p></div>', unsafe_allow_html=True)
-with b3:
-    st.markdown('<div class="benefit-card" style="border-left-color: #4CAF50;"><h3>⚖️ Asesoría Legal</h3><p>Defensa gremial y legal gratuita. Lunes a Viernes de 10 a 16hs.</p></div>', unsafe_allow_html=True)
+with b1: st.markdown('<div class="benefit-card"><h3>🚌 Turismo RolSol</h3><p>Viajes con facilidades de pago. Grilla completa de salidas grupales.</p></div>', unsafe_allow_html=True)
+with b2: st.markdown('<div class="benefit-card"><h3>🏍️ Ciudad Moto</h3><p>Descuentos exclusivos en unidades y accesorios para afiliados.</p></div>', unsafe_allow_html=True)
+with b3: st.markdown('<div class="benefit-card"><h3>⚖️ Gremiales</h3><p>Asesoría legal y defensa del convenio colectivo de trabajo.</p></div>', unsafe_allow_html=True)
 
-# --- 7. DETALLE TEMPORADA LUZ Y FUERZA ---
+# Galería Turismo RolSol
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
-st.subheader("🏖️ Temporada Verano 25/26 - Convenio Luz y Fuerza")
-st.warning("⚠️ Tarifas válidas hasta Dic 2025. Desde Enero se ajustan por IPC.")
-
-t1, t2, t3, t4 = st.tabs(["🌊 San Bernardo", "🏖️ Mar del Plata", "🌲 Villa Giardino", "🏔️ Bariloche"])
-
-with t1:
-    st.markdown("**Hotel 'Por la Liberación Nacional'** - Chiozza 2455 [cite: 80]")
-    st.write("✅ Todo Incluido, Piscina Climatizada, Cochera[cite: 81, 83].")
-    st.table({
-        "Habitación": ["Individual", "Doble p/p", "Triple p/p", "Cuádruple p/p", "Menores (3-12)"],
-        "Afiliado": ["$200.000", "$100.000", "$95.000", "$90.000", "$45.000 a $50.000"] # 
-    })
-
-with t2:
-    st.markdown("**Hotel 'Oscar Lescano'** - Av. De Los Trabajadores 3971 [cite: 118]")
-    st.write("✅ Todo Incluido, Vista al mar, Piscina Climatizada[cite: 120].")
-    st.table({
-        "Habitación": ["Individual", "Doble p/p", "Triple p/p", "Menores (3-12)"],
-        "Afiliado": ["$200.000", "$100.000", "$95.000", "$47.500 a $50.000"] # [cite: 111]
-    })
-
-with t3:
-    st.markdown("**Hotel 'Por los Derechos del Trabajador'** - Villa Giardino [cite: 34]")
-    st.write("✅ Contingentes de 7 días. Entorno serrano[cite: 34].")
-    st.table({
-        "Habitación": ["Doble p/p", "Triple p/p", "Cuádruple p/p", "Menores (3-12)"],
-        "Afiliado": ["$83.000", "$78.850", "$74.700", "$37.300 a $41.500"] # [cite: 37]
-    })
-
-with t4:
-    st.markdown("**Hotel 'Alún Nehuén'** - Av. Bustillo km 32, Bariloche [cite: 31]")
-    st.write("✅ Media Pensión (Desayuno y Cena), Spa y Gimnasio[cite: 32].")
-    st.table({
-        "Habitación": ["Doble p/p", "Triple p/p", "Menores (3-12)"],
-        "Afiliado": ["$88.000", "$83.600", "$41.800 a $44.000"] # [cite: 29]
-    })
+st.subheader("🚌 Destinos Destacados - Turismo RolSol")
+ci1, ci2, ci3 = st.columns(3)
+with ci1: st.image("https://www.rolsol.com.ar/uploads/destinos/fotos/destino_1_1.jpg", caption="Cataratas", use_container_width=True)
+with ci2: st.image("https://www.rolsol.com.ar/uploads/destinos/fotos/destino_4_1.jpg", caption="Mendoza", use_container_width=True)
+with ci3: st.image("https://www.rolsol.com.ar/uploads/destinos/fotos/destino_11_1.jpg", caption="Norte Argentino", use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 8. FORMULARIO DE AFILIACIÓN ---
+# Detalle Hotelería Luz y Fuerza + BOTÓN DESCARGA
+st.markdown('<div class="white-container">', unsafe_allow_html=True)
+col_text, col_btn = st.columns([3, 1])
+with col_text:
+    st.subheader("🏖️ Temporada 25/26 - Hoteles Luz y Fuerza")
+with col_btn:
+    # REEMPLAZA ESTE LINK POR TU ARCHIVO PDF REAL
+    link_pdf = "https://drive.google.com/file/d/1jhcYwAVWGr9ZSHIiAgaPyU_j4eJho_yx/view?usp=drive_link"
+    st.markdown(f'<a href="{link_pdf}" target="_blank" class="download-btn">📥 DESCARGAR FOLLETO</a>', unsafe_allow_html=True)
+
+t_h = st.tabs(["San Bernardo", "Mar del Plata", "Villa Giardino", "Bariloche"])
+with t_h[0]:
+    st.write("**Hotel 'Por la Liberación Nacional'** (Chiozza 2455)")
+    st.table({"Categoría": ["Doble", "Triple", "Cuádruple"], "Tarifa p/p": ["$100.000", "$95.000", "$90.000"]})
+with t_h[1]:
+    st.write("**Hotel 'Oscar Lescano'** (Av. De Los Trabajadores 3971)")
+    st.write("Servicio Todo Incluido frente al mar.")
+with t_h[2]:
+    st.write("**Villa Giardino (Córdoba)**")
+    st.write("Estadías de 7 días. Ideal para descanso familiar.")
+with t_h[3]:
+    st.write("**Bariloche - Alún Nehuén**")
+    st.write("Media pensión con vistas panorámicas al Nahuel Huapi.")
+st.markdown('</div>', unsafe_allow_html=True)
+
+# --- 7. FORMULARIO DE AFILIACIÓN ---
 st.markdown('<div id="afiliacion" class="section-title">📝 Afiliación Online</div>', unsafe_allow_html=True)
 with st.container():
     st.markdown('<div class="white-container">', unsafe_allow_html=True)
     with st.form("form_afi", clear_on_submit=True):
-        f_col1, f_col2 = st.columns(2)
-        nom = f_col1.text_input("Nombre y Apellido*")
-        dni = f_col2.text_input("DNI (solo números)*")
-        emp = f_col1.text_input("Empresa de Seguridad*")
-        cel = f_col2.text_input("WhatsApp*")
-        
-        inte = st.multiselect("Intereses:", ["Turismo", "Kit Escolar", "Asesoría Legal", "Salud"])
-        acepto = st.checkbox("Acepto los términos y el tratamiento de mis datos (Ley 25.326).")
-        
+        f_c1, f_c2 = st.columns(2)
+        nom = f_c1.text_input("Nombre y Apellido*")
+        dni = f_c2.text_input("DNI (sin puntos)*")
+        emp = f_c1.text_input("Empresa de Seguridad*")
+        cel = f_c2.text_input("WhatsApp*")
+        inte = st.multiselect("Me interesa recibir info sobre:", ["Turismo", "Kit Escolar", "Asesoría Legal", "Salud"])
+        acepto = st.checkbox("Acepto que mis datos sean tratados bajo la Ley 25.326.")
         if st.form_submit_button("ENVIAR SOLICITUD"):
             if acepto and nom and dni.isdigit() and cel:
                 if guardar_registro(nom, dni, emp, cel, inte):
-                    st.success(f"✅ ¡Gracias {nom}! Solicitud guardada exitosamente.")
+                    st.success(f"✅ ¡Gracias {nom}! Tu solicitud ha sido registrada.")
                     st.balloons()
-                else: st.error("❌ Error de conexión con la base de datos.")
-            else: st.warning("⚠️ Completa los campos obligatorios.")
+                else: st.error("❌ Error de guardado.")
+            else: st.warning("⚠️ Completá los campos obligatorios.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 9. MAPA Y UBICACIÓN ---
-st.markdown('<div id="contacto" class="section-title">📍 Ubicación</div>', unsafe_allow_html=True)
+# --- 8. MAPA Y SEDE CENTRAL ---
+st.markdown('<div id="contacto" class="section-title">📍 Sede Central</div>', unsafe_allow_html=True)
 with st.container():
     st.markdown('<div class="white-container" style="text-align:center;">', unsafe_allow_html=True)
-    st.markdown("### Sede Central STVP")
-    st.write("Piedras 1065, Constitución, CABA.")
-    # Mapa centrado en la dirección del sindicato
-    map_data = pd.DataFrame({'lat': [-34.6215], 'lon': [-58.3815]})
-    st.map(map_data)
+    st.markdown("### Dirección: Piedras 1065, Constitución, CABA")
+    map_coord = pd.DataFrame({'lat': [-34.6215], 'lon': [-58.3815]})
+    st.map(map_coord)
     st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown("<p style='text-align:center; font-weight:bold; color:#0D47A1; padding:20px;'>© 2026 STVP Sindicato de Trabajadores de Vigilancia Privada</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; font-weight:bold; color:#0D47A1; padding:20px;'>© 2026 STVP - Sindicato de Trabajadores de Vigilancia Privada</p>", unsafe_allow_html=True)
