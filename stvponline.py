@@ -119,7 +119,7 @@ with col_text:
     st.subheader("🏖️ Temporada 25/26 - Hoteles Luz y Fuerza")
 with col_btn:
     # REEMPLAZA ESTE LINK POR TU ARCHIVO PDF REAL
-    link_pdf = "https://drive.google.com/file/d/1jhcYwAVWGr9ZSHIiAgaPyU_j4eJho_yx/view?usp=drive_link"
+    link_pdf = "https://tu-enlace-al-folleto-pdf.pdf"
     st.markdown(f'<a href="{link_pdf}" target="_blank" class="download-btn">📥 DESCARGAR FOLLETO</a>', unsafe_allow_html=True)
 
 t_h = st.tabs(["San Bernardo", "Mar del Plata", "Villa Giardino", "Bariloche"])
