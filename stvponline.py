@@ -66,16 +66,8 @@ st.markdown("""
     </a>
     """, unsafe_allow_html=True)
 
-# --- 3. BARRA DE NAVEGACIÓN ---
-st.markdown("""
-    <div class="nav-bar">
-        <a href="#inicio">INICIO</a>
-        <a href="#beneficios">TURISMO</a>
-        <a href="#camping">CAMPING FATICA</a>
-        <a href="#afiliacion">AFILIACIÓN</a>
-    </div>
-    <div style="margin-top: 100px;"></div>
-""", unsafe_allow_html=True)
+# --- 3. NAVEGACIÓN ---
+st.markdown("""<div class="nav-bar"><a href="#inicio">INICIO</a><a href="#beneficios">TURISMO</a><a href="#camping">CAMPING</a><a href="#afiliacion">AFILIACIÓN</a><a href="#contacto">SEDE</a></div><div style="margin-top: 100px;"></div>""", unsafe_allow_html=True)
 
 # --- 4. CONEXIÓN A GOOGLE SHEETS ---
 URL_SHEET = "https://docs.google.com/spreadsheets/d/1mmMbsH6BNfrcmtq3T7xDizBVxjd--sWUIUdBZtSPuFM/edit#gid=6508803"
@@ -106,7 +98,6 @@ with c_title:
 # --- 6. SECCIÓN TURISMO ROLSOL ---
 st.markdown('<div id="beneficios" class="section-title">🚌 Turismo RolSol</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
-
 col_t1, col_t2 = st.columns([2, 1])
 with col_t1:
     st.subheader("Ofertas de Verano - Salidas Enero 2026")
@@ -114,16 +105,15 @@ with col_t2:
     canal_whatsapp = "https://whatsapp.com/channel/0029VbAua9BJENy8oScpAH2B"
     st.markdown(f'<a href="{canal_whatsapp}" target="_blank" class="btn-whatsapp-rolsol">📢 Canal de WhatsApp</a>', unsafe_allow_html=True)
 
-# Galería de Destinos (Enlaces de Postimg)
 c1, c2, c3 = st.columns(3)
-with c1: st.image("https://i.postimg.cc/g0cwqwtH/rolsol1.jpg", caption="Bariloche - 19 de Enero", use_container_width=True)
-with c2: st.image("https://i.postimg.cc/8CkFBFXH/rolsol2.jpg", caption="Villa de Merlo - 15 de Enero", use_container_width=True)
-with c3: st.image("https://i.postimg.cc/5t9HqHKp/rolsol.jpg", caption="Mar del Plata - Enero", use_container_width=True)
+with c1: st.image("https://i.postimg.cc/g0cwqwtH/rolsol1.jpg", caption="Bariloche", use_container_width=True)
+with c2: st.image("https://i.postimg.cc/8CkFBFXH/rolsol2.jpg", caption="Villa de Merlo", use_container_width=True)
+with c3: st.image("https://i.postimg.cc/5t9HqHKp/rolsol.jpg", caption="Mar del Plata", use_container_width=True)
 
 c4, c5, c6 = st.columns(3)
-with c4: st.image("https://i.postimg.cc/7LPCMCtM/rolsol3.jpg", caption="Noroeste Argentino Full", use_container_width=True)
+with c4: st.image("https://i.postimg.cc/7LPCMCtM/rolsol3.jpg", caption="Noroeste Argentino", use_container_width=True)
 with c5: st.image("https://i.postimg.cc/6Q67L7bV/rolsol4.jpg", caption="Patagonia Soñada", use_container_width=True)
-with c6: st.image("https://i.postimg.cc/bvYGHGV1/rolsol5.jpg", caption="Cataratas (Aéreo) - 22 Enero", use_container_width=True)
+with c6: st.image("https://i.postimg.cc/bvYGHGV1/rolsol5.jpg", caption="Cataratas (Aéreo)", use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
 # --- 7. CAMPING NÉSTOR KIRCHNER (FATICA) ---
@@ -133,17 +123,7 @@ st.image("https://i.postimg.cc/HLWJ4JvB/centro-nestor-kirchner.jpg", caption="Ta
 st.info("📍 Ruta 8 km. 76, Exaltación de la Cruz | 📞 Reservas: (011) 6155-0927")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 8. LUZ Y FUERZA ---
-st.markdown('<div class="white-container">', unsafe_allow_html=True)
-col_text, col_btn = st.columns([2, 1])
-with col_text:
-    st.subheader("🏖️ Temporada 25/26 - Hoteles Luz y Fuerza")
-with col_btn:
-    folleto_drive = "https://drive.google.com/file/d/1jhcYwAVWGr9ZSHIiAgaPyU_j4eJho_yx/view?usp=drive_link"
-    st.markdown(f'<a href="{folleto_drive}" target="_blank" class="download-btn">📥 DESCARGAR FOLLETO PDF</a>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
-
-# --- 9. FORMULARIO DE AFILIACIÓN ---
+# --- 8. FORMULARIO DE AFILIACIÓN ---
 st.markdown('<div id="afiliacion" class="section-title">📝 Afiliación Online</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 with st.form("form_afi", clear_on_submit=True):
@@ -152,16 +132,28 @@ with st.form("form_afi", clear_on_submit=True):
     dni = f_c2.text_input("DNI (sin puntos)*")
     emp = f_c1.text_input("Empresa de Seguridad*")
     cel = f_c2.text_input("WhatsApp*")
-    inte = st.multiselect("Me interesa recibir info sobre:", ["Turismo", "Camping", "Asesoría Legal", "Salud"])
-    acepto = st.checkbox("Acepto que mis datos sean tratados bajo la Ley 25.326.")
-    
+    inte = st.multiselect("Me interesa:", ["Turismo", "Camping", "Legal"])
+    acepto = st.checkbox("Acepto tratamiento de datos.")
     if st.form_submit_button("ENVIAR SOLICITUD"):
         if acepto and nom and dni and cel:
             if guardar_registro(nom, dni, emp, cel, inte):
-                st.success(f"✅ ¡Gracias {nom}! Tu solicitud ha sido registrada.")
+                st.success(f"✅ ¡Gracias {nom}! Solicitud registrada.")
                 st.balloons()
-            else: st.error("❌ Error de guardado.")
-        else: st.warning("⚠️ Completá los campos obligatorios.")
+st.markdown('</div>', unsafe_allow_html=True)
+
+# --- 9. SEDE CENTRAL Y MAPA (CORREGIDO) ---
+st.markdown('<div id="contacto" class="section-title">📍 Sede Central</div>', unsafe_allow_html=True)
+st.markdown('<div class="white-container" style="text-align:center;">', unsafe_allow_html=True)
+st.markdown("### Dirección: Piedras 1065, Constitución, CABA")
+
+# Coordenadas exactas para Piedras 1065, CABA
+map_data = pd.DataFrame({
+    'lat': [-34.6215322],
+    'lon': [-58.3814838]
+})
+
+# Renderizado del mapa
+st.map(map_data, zoom=14)
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("<p style='text-align:center; font-weight:bold; color:#0D47A1; padding:20px;'>© 2026 STVP - Sindicato de Trabajadores de Vigilancia Privada</p>", unsafe_allow_html=True)
