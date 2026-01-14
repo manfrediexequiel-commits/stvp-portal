@@ -43,7 +43,6 @@ st.markdown("""
         margin-bottom: 30px;
     }
 
-    /* Botones Estilizados */
     .btn-whatsapp-rolsol {
         background-color: #0080ff; color: white !important;
         padding: 12px 20px; text-decoration: none; border-radius: 8px;
@@ -78,6 +77,7 @@ st.markdown("""
     <div class="nav-bar">
         <a href="#inicio">INICIO</a>
         <a href="#beneficios">BENEFICIOS</a>
+        <a href="#camping">CAMPING FATICA</a>
         <a href="#afiliacion">AFILIACIÓN</a>
         <a href="#contacto">SEDE CENTRAL</a>
     </div>
@@ -110,16 +110,9 @@ with c_title:
     st.markdown("<h1 style='color: #0D47A1; margin-bottom:0;'>STVP - Sindicato Vigilancia</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='color: #1565C0;'>Gestión y Beneficios para el Trabajador</h3>", unsafe_allow_html=True)
 
-# --- 6. SECCIÓN BENEFICIOS ---
+# --- 6. SECCIÓN BENEFICIOS - TURISMO ROLSOL ---
 st.markdown('<div id="beneficios" class="section-title">🎁 Beneficios y Convenios</div>', unsafe_allow_html=True)
 
-# Tarjetas rápidas
-b1, b2, b3 = st.columns(3)
-with b1: st.markdown('<div class="benefit-card"><h3>🚌 Turismo RolSol</h3><p>Viajes con facilidades de pago. Ofertas exclusivas de verano.</p></div>', unsafe_allow_html=True)
-with b2: st.markdown('<div class="benefit-card"><h3>🏍️ Ciudad Moto</h3><p>Descuentos exclusivos en unidades y accesorios para afiliados.</p></div>', unsafe_allow_html=True)
-with b3: st.markdown('<div class="benefit-card"><h3>⚖️ Gremiales</h3><p>Asesoría legal y defensa del convenio colectivo de trabajo.</p></div>', unsafe_allow_html=True)
-
-# Galería Turismo RolSol con imágenes subidas y Canal de WhatsApp
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 col_t1, col_t2 = st.columns([2, 1])
 with col_t1:
@@ -139,7 +132,37 @@ with c5: st.image("rolsol4.jpg", caption="Patagonia Soñada", use_container_widt
 with c6: st.image("rolsol5.jpg", caption="Cataratas (Aéreo) - 22 Enero", use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Hotelería Luz y Fuerza + Descarga de Folleto
+# --- 7. SECCIÓN CAMPING NESTOR KIRCHNER (FATICA) ---
+st.markdown('<div id="camping" class="section-title">🌳 Centro Social Néstor Kirchner</div>', unsafe_allow_html=True)
+st.markdown('<div class="white-container">', unsafe_allow_html=True)
+st.subheader("Temporada 2025/2026 - FATICA")
+st.image("centro nestor kirchner.jpg", use_container_width=True)
+
+col_f1, col_f2 = st.columns(2)
+with col_f1:
+    st.markdown("### 💳 Tarifas Afiliados")
+    st.markdown("""
+    - **Entrada General:** $3.000
+    - **Menores (hasta 9 años):** S/C
+    - **Alojamiento (mayores 10 años):** $10.000 por día
+    - **Alojamiento (menores 10 años):** S/C
+    - **Carpa por parcela (hasta 4 personas):** $8.000
+    - **Jubilados (con carnet FATICA):** S/C
+    """)
+with col_f2:
+    st.markdown("### 🍗 Otras Prestaciones")
+    st.markdown("""
+    - **Quincho chico (hasta 15 personas):** $40.000
+    - **Quincho mediano (hasta 40 personas):** $60.000
+    - **Quincho grande (hasta 80 personas):** $100.000
+    - **Motorhome / Casillas:** $20.000 por día + Entrada
+    """)
+
+st.info("📍 Ruta 8 km. 76, Exaltación de la Cruz | 📞 Reservas: (011) 6155-0927")
+st.warning("⏰ Horarios: Martes a Domingo de 9 a 19 hs. Lunes CERRADO.")
+st.markdown('</div>', unsafe_allow_html=True)
+
+# --- 8. LUZ Y FUERZA ---
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 col_text, col_btn = st.columns([2, 1])
 with col_text:
@@ -154,45 +177,39 @@ with t_h[0]:
     st.table({"Categoría": ["Doble", "Triple", "Cuádruple"], "Tarifa p/p": ["$100.000", "$95.000", "$90.000"]})
 with t_h[1]:
     st.write("**Hotel 'Oscar Lescano'**")
-    st.write("Servicio Todo Incluido frente al mar.")
 with t_h[2]:
     st.write("**Villa Giardino (Córdoba)**")
-    st.write("Estadías de 7 días. Ideal para descanso familiar.")
 with t_h[3]:
     st.write("**Bariloche - Alún Nehuén**")
-    st.write("Media pensión con vistas panorámicas.")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 7. FORMULARIO DE AFILIACIÓN ---
+# --- 9. FORMULARIO DE AFILIACIÓN ---
 st.markdown('<div id="afiliacion" class="section-title">📝 Afiliación Online</div>', unsafe_allow_html=True)
-with st.container():
-    st.markdown('<div class="white-container">', unsafe_allow_html=True)
-    with st.form("form_afi", clear_on_submit=True):
-        f_c1, f_c2 = st.columns(2)
-        nom = f_c1.text_input("Nombre y Apellido*")
-        dni = f_c2.text_input("DNI (sin puntos)*")
-        emp = f_c1.text_input("Empresa de Seguridad*")
-        cel = f_c2.text_input("WhatsApp*")
-        inte = st.multiselect("Me interesa recibir info sobre:", ["Turismo", "Kit Escolar", "Asesoría Legal", "Salud"])
-        acepto = st.checkbox("Acepto que mis datos sean tratados bajo la Ley 25.326.")
-        
-        if st.form_submit_button("ENVIAR SOLICITUD"):
-            if acepto and nom and dni.isdigit() and cel:
-                if guardar_registro(nom, dni, emp, cel, inte):
-                    st.success(f"✅ ¡Gracias {nom}! Tu solicitud ha sido registrada.")
-                    st.balloons()
-                else: st.error("❌ Error de guardado.")
-            else: st.warning("⚠️ Completá los campos obligatorios.")
-    st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('<div class="white-container">', unsafe_allow_html=True)
+with st.form("form_afi", clear_on_submit=True):
+    f_c1, f_c2 = st.columns(2)
+    nom = f_c1.text_input("Nombre y Apellido*")
+    dni = f_c2.text_input("DNI (sin puntos)*")
+    emp = f_c1.text_input("Empresa de Seguridad*")
+    cel = f_c2.text_input("WhatsApp*")
+    inte = st.multiselect("Me interesa recibir info sobre:", ["Turismo", "Kit Escolar", "Asesoría Legal", "Salud"])
+    acepto = st.checkbox("Acepto que mis datos sean tratados bajo la Ley 25.326.")
+    
+    if st.form_submit_button("ENVIAR SOLICITUD"):
+        if acepto and nom and dni.isdigit() and cel:
+            if guardar_registro(nom, dni, emp, cel, inte):
+                st.success(f"✅ ¡Gracias {nom}! Tu solicitud ha sido registrada.")
+                st.balloons()
+            else: st.error("❌ Error de guardado.")
+        else: st.warning("⚠️ Completá los campos obligatorios.")
+st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 8. MAPA Y SEDE CENTRAL ---
+# --- 10. MAPA Y SEDE CENTRAL ---
 st.markdown('<div id="contacto" class="section-title">📍 Sede Central</div>', unsafe_allow_html=True)
-with st.container():
-    st.markdown('<div class="white-container" style="text-align:center;">', unsafe_allow_html=True)
-    st.markdown("### Dirección: Piedras 1065, Constitución, CABA")
-    st.write("Atención presencial: Lunes a Viernes 09:00 - 17:00 hs.")
-    map_coord = pd.DataFrame({'lat': [-34.6215], 'lon': [-58.3815]})
-    st.map(map_coord)
-    st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('<div class="white-container" style="text-align:center;">', unsafe_allow_html=True)
+st.markdown("### Dirección: Piedras 1065, Constitución, CABA")
+map_coord = pd.DataFrame({'lat': [-34.6215], 'lon': [-58.3815]})
+st.map(map_coord)
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("<p style='text-align:center; font-weight:bold; color:#0D47A1; padding:20px;'>© 2026 STVP - Sindicato de Trabajadores de Vigilancia Privada</p>", unsafe_allow_html=True)
