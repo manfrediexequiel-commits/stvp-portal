@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-from streamlit_gsheets import GSheetsConnection
 
 # --- 1. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
@@ -10,73 +9,51 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 2. ESTILOS PERSONALIZADOS (CSS MODERNO Y CONTRASTADO) ---
+# --- 2. ESTILOS PERSONALIZADOS ---
 st.markdown("""
     <style>
-    /* Fondo general neutro */
     .stApp { background-color: #F8FAFC; }
-    
-    /* Títulos: Azul Navy Profundo para máximo contraste */
     .section-title {
         font-size: 2.2rem; font-weight: 800; color: #1A237E;
         text-align: center; margin: 2rem 0; text-transform: uppercase;
         letter-spacing: 1px;
     }
-
-    /* Texto de cuerpo: Gris Carbón para legibilidad moderna */
-    p, span, label, .stMarkdown {
-        color: #2C3E50 !important;
-        font-weight: 500;
-    }
-
-    /* Navegación Refinada */
+    p, span, label, .stMarkdown { color: #2C3E50 !important; font-weight: 500; }
     .nav-bar {
         position: fixed; top: 0; left: 0; width: 100%;
         background-color: #ffffff; z-index: 1000; padding: 15px;
         text-align: center; border-bottom: 3px solid #1A237E;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .nav-bar a { 
-        margin: 0 15px; text-decoration: none; color: #1A237E; 
-        font-weight: 700; font-size: 0.85rem;
-    }
+    .nav-bar a { margin: 0 15px; text-decoration: none; color: #1A237E; font-weight: 700; font-size: 0.85rem; }
     .nav-bar a:hover { color: #D32F2F; }
-
-    /* Contenedores de contenido */
     .white-container {
         background-color: #ffffff; padding: 30px; border-radius: 16px;
         border: 1px solid #E2E8F0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         margin-bottom: 30px;
     }
-
-    /* Botones y CTAs */
     .btn-whatsapp-rolsol {
         background-color: #2563EB; color: white !important;
         padding: 10px 20px; text-decoration: none; border-radius: 8px;
         font-weight: bold; display: inline-block; font-size: 0.8rem;
     }
-    
     .download-btn {
         display: inline-block; padding: 12px 24px; background-color: #EF4444;
         color: white !important; text-decoration: none; border-radius: 8px;
-        font-weight: bold; text-align: center; font-size: 0.9rem;
+        font-weight: bold; text-align: center; font-size: 0.9rem; width: 100%;
     }
-
     .btn-credencial {
         background-color: #1A237E; color: white !important;
         padding: 15px 25px; text-decoration: none; border-radius: 10px;
         font-weight: bold; display: inline-block; text-align: center;
         box-shadow: 0 4px 15px rgba(26, 35, 126, 0.4);
     }
-
-    /* Simulación de Credencial Digital */
     .card-sample {
         background: linear-gradient(135deg, #1A237E 0%, #0D47A1 100%);
         color: white !important; border-radius: 15px; padding: 25px;
         max-width: 350px; margin: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         border: 1px solid rgba(255,255,255,0.2);
     }
-
     .whatsapp-float {
         position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
         background-color: #22C55E; color: white; border-radius: 50px;
@@ -106,32 +83,16 @@ st.markdown("""
     <div style="margin-top: 100px;"></div>
 """, unsafe_allow_html=True)
 
-# --- 4. CONEXIÓN G-SHEETS ---
-URL_SHEET = "https://docs.google.com/spreadsheets/d/1mmMbsH6BNfrcmtq3T7xDizBVxjd--sWUIUdBZtSPuFM/edit#gid=6508803"
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-def guardar_registro(nombre, dni, empresa, celular, intereses):
-    try:
-        df_old = conn.read(spreadsheet=URL_SHEET, worksheet="Afiliaciones", ttl=0)
-        nuevo = pd.DataFrame([{
-            "Nombre": nombre, "DNI": str(dni), "Empresa": empresa,
-            "Celular": str(celular), "Intereses": ", ".join(intereses),
-            "Fecha": datetime.now().strftime("%d/%m/%Y %H:%M"), "Estado": "Pendiente"
-        }])
-        df_final = pd.concat([df_old, nuevo], ignore_index=True)
-        conn.update(spreadsheet=URL_SHEET, worksheet="Afiliaciones", data=df_final)
-        return True
-    except Exception: return False
-
-# --- 5. CABECERA ---
+# --- 4. CABECERA ---
 st.markdown('<div id="inicio"></div>', unsafe_allow_html=True)
 c_logo, c_title = st.columns([1, 4])
-with c_logo: st.image("https://customer-assets.emergentagent.com/job_stvp-portal-1/artifacts/xlt7u219_logo_stvp.png", width=140)
+with c_logo: 
+    st.image("https://customer-assets.emergentagent.com/job_stvp-portal-1/artifacts/xlt7u219_logo_stvp.png", width=140)
 with c_title:
     st.markdown("<h1 style='color: #1A237E; margin-bottom:0;'>STVP - Sindicato Vigilancia</h1>", unsafe_allow_html=True)
     st.markdown("<h4 style='color: #475569;'>Gestión, Turismo y Beneficios</h4>", unsafe_allow_html=True)
 
-# --- 6. TURISMO ROLSOL ---
+# --- 5. TURISMO ROLSOL ---
 st.markdown('<div id="turismo" class="section-title">🚌 Turismo RolSol</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 ct1, ct2 = st.columns([3, 1])
@@ -147,7 +108,7 @@ with r1c3: st.image("https://i.postimg.cc/5t9HqHKp/rolsol.jpg", caption="Mar del
 with r1c4: st.image("https://i.postimg.cc/7LPCMCtM/rolsol3.jpg", caption="Noroeste", use_container_width=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 7. CAMPING FATICA ---
+# --- 6. CAMPING FATICA ---
 st.markdown('<div id="camping" class="section-title">🌳 Camping Néstor Kirchner</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 col_camp1, col_camp2 = st.columns([1, 1.5])
@@ -161,7 +122,7 @@ with col_camp2:
     st.info("📍 Ruta 8 km. 76, Exaltación de la Cruz")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 8. HOTELES LUZ Y FUERZA ---
+# --- 7. HOTELES LUZ Y FUERZA ---
 st.markdown('<div id="hoteles" class="section-title">🏖️ Hotelería Luz y Fuerza</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 col_lyf1, col_lyf2 = st.columns([3, 1])
@@ -184,16 +145,13 @@ with tabs_lyf[2]:
     st.write("Entorno natural serrano con pileta y pensión completa.")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 9. SECCIÓN CREDENCIAL DIGITAL ---
+# --- 8. SECCIÓN CREDENCIAL DIGITAL ---
 st.markdown('<div id="credencial" class="section-title">🪪 Credencial Digital</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 col_cre1, col_cre2 = st.columns([1, 1])
 with col_cre1:
     st.markdown("<h3 style='color: #1A237E;'>Tu identidad sindical, siempre con vos</h3>", unsafe_allow_html=True)
-    st.write("""
-    Accede de forma rápida y segura a tu credencial digital. 
-    Válida para todos los beneficios y convenios del STVP.
-    """)
+    st.write("Accede de forma rápida y segura a tu credencial digital.")
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f'<a href="https://stvp-credencial.streamlit.app/#stvp-digital" target="_blank" class="btn-credencial">ACCEDER A MI CREDENCIAL</a>', unsafe_allow_html=True)
 with col_cre2:
@@ -213,7 +171,7 @@ with col_cre2:
     """, unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 10. AFILIACIÓN ---
+# --- 9. AFILIACIÓN (VERSION WHATSAPP SIN ERRORES DE CLAVE) ---
 st.markdown('<div id="afiliacion" class="section-title">📝 Solicitud de Afiliación</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container">', unsafe_allow_html=True)
 with st.form("afi_form", clear_on_submit=True):
@@ -222,16 +180,26 @@ with st.form("afi_form", clear_on_submit=True):
     dni = f2.text_input("DNI*")
     empresa = f1.text_input("Empresa de Seguridad*")
     celular = f2.text_input("WhatsApp de Contacto*")
-    interes = st.multiselect("Me interesa info de:", ["Turismo RolSol", "Hoteles LyF", "Camping", "Credencial Digital"])
-    if st.form_submit_button("ENVIAR DATOS"):
+    intereses = st.multiselect("Me interesa info de:", ["Turismo RolSol", "Hoteles LyF", "Camping", "Credencial Digital"])
+    
+    submit = st.form_submit_button("PREPARAR SOLICITUD")
+    
+    if submit:
         if nombre and dni and celular:
-            if guardar_registro(nombre, dni, empresa, celular, interes):
-                st.success("✅ Datos recibidos. Nos contactaremos a la brevedad.")
-                st.balloons()
-        else: st.warning("Por favor complete los campos obligatorios.")
+            texto_wa = f"Hola STVP! Mi nombre es {nombre}, DNI {dni}. Trabajo en {empresa}. Me interesa: {', '.join(intereses)}. Quiero afiliarme."
+            # Codificar el texto para URL
+            import urllib.parse
+            texto_url = urllib.parse.quote(texto_wa)
+            wa_link = f"https://wa.me/5491152628936?text={texto_url}"
+            
+            st.success("✅ Datos validados.")
+            st.markdown(f'<a href="{wa_link}" target="_blank" class="download-btn">🟢 ENVIAR SOLICITUD POR WHATSAPP</a>', unsafe_allow_html=True)
+            st.info("Haga clic en el botón verde de arriba para finalizar el envío.")
+        else:
+            st.warning("Por favor complete los campos obligatorios.")
 st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 11. SEDE Y MAPA ---
+# --- 10. SEDE Y MAPA ---
 st.markdown('<div id="contacto" class="section-title">📍 Sede Central</div>', unsafe_allow_html=True)
 st.markdown('<div class="white-container" style="text-align:center;">', unsafe_allow_html=True)
 st.markdown("<h4 style='color: #1A237E;'>Piedras 1065, Constitución, CABA</h4>", unsafe_allow_html=True)
